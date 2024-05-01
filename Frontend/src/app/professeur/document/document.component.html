@@ -1,0 +1,11 @@
+<form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="description">Description:</label>
+    <input type="text" id="description" formControlName="description">
+  </div>
+  <div>
+    <label for="pdf">Sélectionner un fichier PDF:</label>
+    <input type="file" id="pdf" (change)="onFileChange($event)">
+  </div>
+  <button type="submit">Uploader</button>
+</form>

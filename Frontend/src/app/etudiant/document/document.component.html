@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let file of pdfFiles">
+    <a href="{{ file}}" target="_blank">{{ file}}</a>
+    <a href="http://localhost:3000/uploads/{{ file }}" download> Télécharger </a>
+  </li>
+</ul>
