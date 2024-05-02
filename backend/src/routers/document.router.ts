@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
     const { description } = req.body;
     const pdfPath = req.file.path;
   
-    const sql = 'INSERT INTO document (lien, description) VALUES (?, ?)';
+    const sql = 'INSERT INTO document (lien, description,id_matiere) VALUES (?, ?,3)';
     db.query(sql, [pdfPath, description], (err:any, result:any) => {
       if (err) {
         console.error("Error during:", err);
@@ -40,20 +40,54 @@ const storage = multer.diskStorage({
     });
   });
   
-  router.get('/', (req:any, res:any) => {
+  // router.get('/', (req:any, res:any) => {
+  //   const uploadDirectory = path.join("D:/MesProjets/ProjetInteg/StudyStack/backend/src", 'uploads');
+  //   console.log("Upload directory:", uploadDirectory);
+  //   // Lire les fichiers dans le répertoire "uploads"
+  //   fs.readdir(uploadDirectory, (err:any, files:any) => {
+  //     if (err) {
+  //       console.error("Error reading files:", err);
+  //       res.status(500).send("Internal Server Error");
+  //     } else {
+  //       // Filtrer les fichiers pour inclure uniquement les PDF
+  //       const pdfFiles = files.filter((file:any) => path.extname(file).toLowerCase() === '.pdf');
+  //       console.log(pdfFiles);
+  //       res.status(200).json(pdfFiles);
+  //     }
+  //   });
+  // });
+   
+  router.get('/:id', (req: any, res: any) => {
+    const id_mat = req.params.id;
     const uploadDirectory = path.join("D:/MesProjets/ProjetInteg/StudyStack/backend/src", 'uploads');
     console.log("Upload directory:", uploadDirectory);
     // Lire les fichiers dans le répertoire "uploads"
-    fs.readdir(uploadDirectory, (err:any, files:any) => {
-      if (err) {
-        console.error("Error reading files:", err);
-        res.status(500).send("Internal Server Error");
-      } else {
-        // Filtrer les fichiers pour inclure uniquement les PDF
-        const pdfFiles = files.filter((file:any) => path.extname(file).toLowerCase() === '.pdf');
-        res.status(200).json(pdfFiles);
-      }
+    fs.readdir(uploadDirectory, (err: any, files: any) => {
+        if (err) {
+            console.error("Error reading files:", err);
+            res.status(500).send("Internal Server Error");
+        } else {
+            // Filtrer les fichiers pour inclure uniquement les PDF
+            const pdfFiles = files.filter((file: any) => path.extname(file).toLowerCase() === '.pdf');
+            console.log(pdfFiles);
+
+            // Construire un tableau de chemins de fichiers PDF
+            const pdfFilePaths = pdfFiles.map((pdfFile: any) => "uploads\\" + pdfFile);
+
+            const sql = 'SELECT * FROM document WHERE lien IN (?) and id_matiere=?'; // Utiliser IN pour filtrer par plusieurs liens
+
+            db.query(sql, [pdfFilePaths,id_mat], (err: any, results: any) => {
+                if (err) {
+                    console.error("Error querying database:", err);
+                    res.status(500).send("Internal Server Error");
+                } else {
+                    console.log("Matching records:", results);
+                    res.status(200).json(results);
+                }
+            });
+        }
     });
-  });
-  
+});
+
+
 export default router;

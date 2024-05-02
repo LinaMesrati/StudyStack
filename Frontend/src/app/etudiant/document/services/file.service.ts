@@ -5,11 +5,10 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FileService {
-  private apiUrl = 'http://localhost:3000/document';
 
   constructor(private http: HttpClient) { }
 
-  getPDFFiles() {
-    return this.http.get(this.apiUrl);
+  getPDFFiles(id: any) {
+    return this.http.get('http://localhost:3000/document/' + id);
   }
 }

@@ -9,6 +9,7 @@ import { HeaderEtudiantComponent } from './header-etudiant/header-etudiant.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentComponent } from './document/document.component';
 import { MeetComponent } from './meet/meet.component';
+import { MatiereService } from './menu/service/matiere.service';
 
 
 
@@ -20,7 +21,8 @@ import { MeetComponent } from './meet/meet.component';
     SharedModule,
     NgbModule
     
-  ]
+  ],
+  providers: [MatiereService],
 })
 export class EtudiantModule { }
 
