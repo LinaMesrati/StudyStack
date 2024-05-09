@@ -4,6 +4,7 @@ import { Matiere } from 'src/app/interfaces/matiere';
 import { EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatiereService } from './service/matiere.service';
+import { UserService } from 'src/app/public/login/userservice';
 
 
 @Component({
@@ -14,17 +15,22 @@ import { MatiereService } from './service/matiere.service';
 
 export class MenuComponent implements OnInit {
   public lesmatieres:any;
+  InfoEtud:any;
 
   @Output() matiereSelected: EventEmitter<Matiere> = new EventEmitter();
-  constructor(private http: HttpClient, private router: Router,private matiere:MatiereService) { }
+  constructor(private http: HttpClient, private router: Router,private matiere:MatiereService, private userService :UserService) { }
  
   ngOnInit(): void {
     this.http.get('http://localhost:3000/matiere').subscribe(data => {
       this.lesmatieres = data;
       
     });
-  }
+    this.matiere.setId(this.userService.getUserId());
+   
 
+    
+  }
+ 
   onMatiereSelected(matiere: Matiere): void {
     this.matiereSelected.emit(matiere);
     this.matiere.setMatiereId(matiere.id);
@@ -34,4 +40,6 @@ export class MenuComponent implements OnInit {
   document():void{
     this.router.navigate(['etudiant/document'])
   }
+  
+  
 }

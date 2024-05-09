@@ -1,0 +1,11 @@
+<div #messageContainer class="message-container">
+  <div *ngFor="let message of messages" class="message">
+    <div class="fullname">{{ getUserName(message.id_user) }}</div>
+    <div class="content">{{ message.message }}</div>
+  </div>
+</div>
+
+<div class="message-input-container">
+  <input #messageInput type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Entrez votre message..." class="form-control">
+  <button #sendButton (click)="sendMessage()" class="btn btn-primary">Envoyer</button>
+</div>

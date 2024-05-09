@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashbordComponent } from './dashbord/dashbord.component';
 import { DocumentComponent } from './document/document.component';
 import { MeetComponent } from './meet/meet.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,9 @@ const routes: Routes = [
       },
       {
         path: 'meet', component:MeetComponent
+      },
+      {
+        path: 'chat', component:ChatComponent
       },
     ]
   }

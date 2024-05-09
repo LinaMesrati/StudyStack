@@ -1,4 +1,9 @@
 const express=require('express');
+const bodyParser = require('body-parser');
+const http = require('http');
+
+
+
 import cors from 'cors';
 import { createConnection } from 'mysql2/promise';
 
@@ -7,6 +12,8 @@ import usersRouter from './routers/users.router';
 import matiereRouter from './routers/matiere.router';
 import classeRouter from './routers/classe.router';
 import documentRouter from './routers/document.router';
+import chatRouter from './routers/chat.router';
+
 const mysql=require('mysql');
 export const db =mysql.createConnection({
   host:'localhost',
@@ -24,6 +31,8 @@ db.connect((err:any)=>
   console.log('Mysql Connected ..');
 })
 const app=express();
+app.use(bodyParser.json());
+
 app.use(express.json(),cors(),(req:any, res:any, next:any) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -35,8 +44,10 @@ app.use("/users",usersRouter)
 app.use("/matiere",matiereRouter)
 app.use("/classe",classeRouter)
 app.use("/document",documentRouter)
+app.use("/chat",chatRouter)
 app.use('/uploads', express.static(uploadDirectory));
 
 app.listen('3000',()=>{
   console.log('Server started on port 3000');
 })
+

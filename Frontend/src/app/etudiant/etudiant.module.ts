@@ -10,11 +10,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DocumentComponent } from './document/document.component';
 import { MeetComponent } from './meet/meet.component';
 import { MatiereService } from './menu/service/matiere.service';
+import { ChatComponent } from './chat/chat.component';
 
 
 
 @NgModule({
-  declarations: [DashbordComponent, MenuComponent, HeaderEtudiantComponent, DocumentComponent, MeetComponent],
+  declarations: [DashbordComponent, MenuComponent, HeaderEtudiantComponent, DocumentComponent, MeetComponent, ChatComponent],
   imports: [
     CommonModule,
     EtudiantRoutingModule,
