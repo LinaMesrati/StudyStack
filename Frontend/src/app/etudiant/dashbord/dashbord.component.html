@@ -21,9 +21,31 @@
               <router-outlet></router-outlet>
           </div>
           <div class="card min-height-80">
-            footer
+            <button class="btn btn-warning" (click)="open(content)" >Contact the Administration</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Send Email</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="submitForm()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" [(ngModel)]="description" name="description" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+    </div>
+  </ng-template>

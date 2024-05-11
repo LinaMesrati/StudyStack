@@ -40,6 +40,7 @@ export class MenuComponent implements OnInit {
   document():void{
     this.router.navigate(['etudiant/document'])
   }
-  
+
+
   
 }

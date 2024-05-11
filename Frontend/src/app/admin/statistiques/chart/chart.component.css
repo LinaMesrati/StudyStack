@@ -1,0 +1,10 @@
+.container {
+    width: 1000px; /* Set container width */
+    height: 900px; /* Set container height */
+  }
+  
+  canvas {
+    width: 100%; /* Make canvas width 100% of its container */
+    height: 100%; /* Make canvas height 100% of its container */
+  }
+  

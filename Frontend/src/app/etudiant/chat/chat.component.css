@@ -1,44 +1,96 @@
-/* chat.component.css */
-
-.message-container {
+/* Reset default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Global styles */
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  #messageContainer {
     max-height: 300px;
-    overflow-y: scroll;
+    overflow-y: scroll; /* Initially set to scroll */
     border: 1px solid #ccc;
     padding: 10px;
 }
 
-.message-container ul {
-    list-style-type: none;
-    padding: 0;
+/* Dynamically switch to 'auto' if content exceeds max height */
+#messageContainer.auto-scroll {
+    overflow-y: auto;
 }
 
-.message-container li {
-    margin-bottom: 10px;
-}
+  
+  /* Message styling */
+  .message {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    margin-bottom: 15px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc; /* Placeholder for avatar */
+    margin-right: 10px;
+  }
+  
+  .message-content {
+    flex: 1;
+  }
+  
+  .fullname {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .content {
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 10px;
+    word-wrap: break-word; 
+  }
 
-.message-input-container {
+  .message-input-container {
     display: flex;
     align-items: center;
     margin-top: 10px;
-}
-
-.message-input-container input {
+  }
+  
+  .message-input-container input {
     flex: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
-}
-
-.message-input-container button {
+    transition: border-color 0.3s ease; 
+  }
+  
+  .message-input-container input:focus {
+    border-color: #007bff; 
+  }
+  
+  .message-input-container button {
     padding: 8px 15px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease; 
+  }
+  
+  .message-input-container button:hover {
+    background-color: #0056b3;
+  }
+  .message-container ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.message-input-container button:hover {
-    background-color: #0056b3;
+.message-container li {
+    margin-bottom: 10px;
 }

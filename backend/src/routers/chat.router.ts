@@ -6,18 +6,19 @@ const router = express.Router();
 
 
 router.post('/', (req:any, res:any) => {
-    const { user, message } = req.body;
-    const sql = 'INSERT INTO message (id_user, message, timestamp) VALUES (?, ?, NOW())';
-    db.query(sql, [user, message], (err:any, result:any) => {
+    const { user, message, matiereId } = req.body; 
+    const sql = 'INSERT INTO message (id_user, message,timestamp,id_matiere) VALUES (?, ?, NOW(),?)'; 
+    db.query(sql, [user, message, matiereId], (err:any, result:any) => {
         if (err) throw err;
         res.send('Message enregistré dans la base de données');
     });
 });
 
 router.get('/', (req:any, res:any) => {
+    const idmat=req.query.mat;
     const lastUpdateTimestamp = req.query.lastUpdateTimestamp || 0;
-    const sql = 'SELECT * FROM message WHERE timestamp > ?';
-    db.query(sql, [lastUpdateTimestamp], (err:any, result:any) => {
+    const sql = 'SELECT * FROM message WHERE timestamp > ? and id_matiere=?';
+    db.query(sql, [lastUpdateTimestamp,idmat], (err:any, result:any) => {
         if (err) throw err;
         res.json(result);
     });

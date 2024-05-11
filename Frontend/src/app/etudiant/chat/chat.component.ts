@@ -37,7 +37,8 @@ export class ChatComponent implements OnInit {
     }
    fetchMessages() {
     const lastUpdateTimestamp = this.messages.length > 0 ? this.messages[this.messages.length - 1].timestamp : 0;
-    this.http.get<any[]>(`http://localhost:3000/chat?lastUpdateTimestamp=${lastUpdateTimestamp}`).subscribe(data => {
+    const matiereId = this.UserService.getMatiereId().getValue(); 
+    this.http.get<any[]>(`http://localhost:3000/chat?lastUpdateTimestamp=${lastUpdateTimestamp}&mat=${matiereId}`).subscribe(data => {
         if (data.length > 0) {
             const tempMessages = [...this.messages]; // Copie temporaire des messages existants
             data.forEach(newMessage => {
@@ -79,20 +80,21 @@ resetInputAndButton() {
 sendMessage() {
     if (this.newMessage.trim() !== '') {
         const user = this.user;
+        const matiereId = this.UserService.getMatiereId().getValue(); 
+        console.log(matiereId);
         console.log(user); 
-        this.http.post('http://localhost:3000/chat', { user, message: this.newMessage }).subscribe(() => {
+        this.http.post('http://localhost:3000/chat', { user, message: this.newMessage, matiereId }).subscribe(() => {
             this.newMessage = '';
             this.resetInput();
-            this.resetInputAndButton(); // Réinitialiser le champ d'entrée et le bouton après l'envoi
-            this.fetchMessages(); // Rafraîchir la liste des messages après l'envoi
-            setTimeout(() => {
-                this.scrollToBottom(); // Faire défiler vers le bas après le rafraîchissement
-            }, 100);
+            this.resetInputAndButton(); // Reset input and button after sending
+            this.fetchMessages(); // Refresh message list after sending
+            this.scrollToBottom();
         });
+        this.getInfoEtud();
+        this.newMessage = '';
     }
-    this.getInfoEtud();
-    this.newMessage = '';
 }
+
     scrollToBottom() {
         if (this.messageContainer && this.messageContainer.nativeElement) {
             this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;

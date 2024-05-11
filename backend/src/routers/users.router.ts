@@ -75,7 +75,6 @@ router.post("/prof", (req: any, res: any) => {
       return;
     }
 
-    // Counter to keep track of asynchronous operations
     let completedOperations = 0;
     const totalOperations = selectedClasses.length;
 
